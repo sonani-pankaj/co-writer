@@ -1,0 +1,39 @@
+[project]
+name = "co-writer"
+version = "0.1.0"
+description = "Local Streamlit studio that turns rough notes into a short paper with Ollama."
+readme = "README.md"
+authors = [
+    { name = "Pankaj Sonani", email = "sonani_pankaj@hotmail.com" }
+]
+requires-python = ">=3.15"
+dependencies = [
+    "ddgs>=9",
+    "ollama>=0.6.3",
+    "pydantic>=2.14",
+    "streamlit>=1.67",
+    "textstat>=0.7",
+    "torch>=2.15",
+    "transformers>=5.22",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+# CPU wheels only. The default torch wheel pulls in a multi-gigabyte CUDA build.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+pythonpath = ["app"]
+testpaths = ["tests"]
